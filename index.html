@@ -1,7 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head><title>Check</title></head>
-  <body>
-    <h1>🎉 It works bro!</h1>
-  </body>
+<head>
+  <title>Form Validation</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .form-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+      width: 300px;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <h2>Register</h2>
+    <form id="myForm">
+      <input type="text" id="name" placeholder="Enter Name" />
+      <div class="error" id="nameError"></div>
+
+      <input type="email" id="email" placeholder="Enter Email" />
+      <div class="error" id="emailError"></div>
+
+      <input type="password" id="password" placeholder="Enter Password" />
+      <div class="error" id="passError"></div>
+
+      <button type="submit">Submit</button>
+      <div class="success" id="successMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("myForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // reset messages
+      document.getElementById("nameError").innerText = "";
+      document.getElementById("emailError").innerText = "";
+      document.getElementById("passError").innerText = "";
+      document.getElementById("successMsg").innerText = "";
+
+      // get values
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      let valid = true;
+
+      if (name === "") {
+        document.getElementById("nameError").innerText = "Name is required";
+        valid = false;
+      }
+
+      if (email === "" || !email.includes("@")) {
+        document.getElementById("emailError").innerText = "Enter a valid email";
+        valid = false;
+      }
+
+      if (password.length < 6) {
+        document.getElementById("passError").innerText = "Password must be at least 6 characters";
+        valid = false;
+      }
+
+      if (valid) {
+        document.getElementById("successMsg").innerText = "Form submitted successfully!";
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
 </html>
